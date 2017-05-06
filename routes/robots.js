@@ -12,7 +12,7 @@ router.get('/robots', function(req, res, next) {
       response.json()
         .then(function(json){
           console.log("LISTING ROBOTS", json)
-          res.render('robots/index', {robots: json, title: "All Robots"});
+          res.render('robots/index', {robots: json, title: "List of Robots"});
         })
     })
     .catch(function(err){
@@ -45,5 +45,15 @@ router.get('/robots/:id', function(req, res, next) {
       res.send(errorMessage)
     })
 });
+
+router.get('/robots/new', function(req, res, next) {
+  const endpointUrl = `${baseUrl}/api/robots`
+
+  res.render('robots/new', {
+    title: "New Robot",
+    formAction: endpointUrl,
+    formMethod: "POST"
+  })
+})
 
 module.exports = router;
