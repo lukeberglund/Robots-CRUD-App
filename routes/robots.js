@@ -47,12 +47,9 @@ router.get('/robots/:id', function(req, res, next) {
 })
 
 router.get('/robots/new', function(req, res, next) {
-  const endpointUrl = `${baseUrl}/api/robots`
-
   res.render('robots/new', {
     title: "New Robot",
-    formAction: endpointUrl,
-    formMethod: "POST"
+
   })
 })
 
