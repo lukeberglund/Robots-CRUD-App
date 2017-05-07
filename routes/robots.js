@@ -44,7 +44,7 @@ router.get('/robots/:id', function(req, res, next) {
       console.log(errorMessage)
       res.send(errorMessage)
     })
-});
+})
 
 router.get('/robots/new', function(req, res, next) {
   const endpointUrl = `${baseUrl}/api/robots`
