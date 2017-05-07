@@ -46,10 +46,11 @@ router.get('/robots/:id', function(req, res, next) {
     })
 })
 
+/* NEW */
+
 router.get('/robots/new', function(req, res, next) {
   res.render('robots/new', {
-    title: "New Robot",
-
+    title: "New Robot"
   })
 })
 
