@@ -6,8 +6,56 @@
   </head>
   <body>
     <h1><%= title %></h1>
+	<h1>Viewing - <%= robot.name %></h1>
+	
+    <p><%= robot.name %> - <%= robot.description %></p>
+	<p>In Stock: <%= robot.in_stock %> </p>
+	
+	<div class="table-responsive">
+       <table class="table table-bordered table-hover">
 
-    <p><%= robot.name %> ---- <%= robot.description %></p>
+         <thead>
+           <tr>
+             <th>Id</th>
+             <th>Name</th>
+             <th>Description</th>
+             <th>Created At</th>
 
+             <th>
+            <a href="/" class="btn btn-success btn-sm">
+           <span class="glyphicon glyphicon-refresh"></span></span>Refresh
+         </a>
+            </th>
+
+           </tr>
+         </thead>
+
+         <tbody>
+           <tr>
+             <td><%= robot._id %></td>
+             <td><%= robot.name %></td>
+             <td><%= robot.description %></td>
+             
+             <td>
+
+               <a href="/robots/<%= robot._id %>/edit">
+              <button class="btn btn-warning btn-sm">
+            <span class="glyphicon glyphicon-pencil"></span>Edit
+          </button></a>
+             </td>
+             <td>
+
+               <button id="delete-robot" class="btn btn-danger btn-sm"> <span class="glyphicon glyphicon-trash"></span>Delete</button>
+
+             </td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+	
+	
+	
+	
+	
   </body>
 </html>

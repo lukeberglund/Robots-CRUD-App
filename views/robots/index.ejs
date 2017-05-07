@@ -8,14 +8,68 @@
     <h1><%= title %></h1>
 	<div align="left">
 	<a href="/robots/new">
-  <button>+ New Robot</button>
+  <button> New Robot</button>
 </a>
     </div>
-	<ul>
-      <% robots.forEach(function(robot){ %>
-        <li><%= robot._id %> - <%= robot.name %> - <%= robot.description %></li>
-      <% }); %>
-    </ul>
+	
+	<div class="table-responsive">
+       <table class="table table-bordered table-hover">
 
+
+         <thead>
+           <tr>
+             <th>Id</th>
+             <th>Name</th>
+             <th>Description</th>
+             <th>Created At</th>
+               <th>Updated At</th>
+               <th>&nbsp;</th>
+               <th>&nbsp;</th>
+           </tr>
+         </thead>
+	<tbody>
+      <% robots.forEach(function(robot){ %>
+	  <tr>
+	  <td><%= robot._id %></td>
+      <td><a href="/robots/<%= robot.name %>"><%= robot.name %></a></td>
+	  <td><%= robot.description %></td>
+      <td><a href="/robots/<%= robot.name %>/edit"><button class="btn btn-warning btn-sm">
+      <span class="glyphicon glyphicon-pencil"></span>Edit
+      </button></a></td>
+      <td>
+      <button class="btn btn-danger btn-sm myDelbtn" data-robot-id="<%= robot._id %>">
+   <span class="glyphicon glyphicon-trash"></span> Delete </button>
+            </td>
+              </tr>
+           <% }); %>
+         </tbody>
+       </table>
+     </div>
+	 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<script>
+	var deleteButtons = document.querySelectorAll('.myDelbtn');
+	deleteButtons.forEach(function(deleteButton){
+	deleteButton.addEventListener("click", deleteRobot, false)
+	})
+	function deleteRobot(ev) {
+		const requestUrl = `https://southernct-443-robots-api.herokuapp.com/api/robots/${ev.target.dataset.robotId}`
+		const requestOptions = {
+		method: "DELETE",
+		headers: {'Accept':'application/json', 'Content-Type':'application/json'}
+	}	
+  fetch(requestUrl, requestOptions).then(function(response) {
+    if (response.ok) {
+      window.location = '/robots'
+    } else {
+      alert("Destruction Error.")
+    }
+  }).catch(function(err){
+    alert("Server Error. Maybe the API server is down or something. Try again in a few moments.")
+  })
+	}
+	</script>
   </body>
 </html>

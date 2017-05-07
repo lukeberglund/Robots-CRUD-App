@@ -29,8 +29,36 @@
     <script src="https://d3js.org/d3.v4.min.js"></script><!-- ONLY NECESSARY IF YOU'RE SENDING REQUESTS VIA D3 -->
     <script type="text/javascript">
 
-      // TODO: ADD JAVASCRIPT HERE TO SEND DATA TO THE WEB SERVICE WHEN THE FORM SUBMIT BUTTON IS PRESSED
-
+    var inputName = document.getElementById("name")
+    var inputDescription = document.getElementById("description")
+    var inputQuantityInStock = document.getElementById("in-stock")
+    var submitButton = document.getElementById("submit")
+	
+    submitButton.addEventListener("click", submitForm, false)
+	
+    function submitForm(event) {
+      event.preventDefault() 
+      var requestUrl = "https://southernct-443-robots-api.herokuapp.com/api/robots"
+      var formData = {name: inputName.value, description: inputDescription.value, in_stock: inputQuantityInStock.value} 
+      
+	  console.log("POSTING", formData, "TO", requestUrl)
+      
+	  // Using fetch
+      var requestOptions = {
+         method: "POST",
+         headers: {'Accept':'application/json', 'Content-Type':'application/json'},
+         body: JSON.stringify(formData)
+      }
+      fetch(requestUrl, requestOptions).then(function(response) {
+        if (response.ok) {
+          response.json().then(function(json){
+            window.location = '/robots' 
+          })
+        } else {
+          alert("OOPS THERE WAS AN ERROR")
+       }
+      })
+      }
     </script>
   </body>
 </html>

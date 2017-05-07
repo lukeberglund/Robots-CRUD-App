@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <h1><%= title %></h1>
+
+    <!--<a href="/robots/<%= robot.name %>"><%= "Back" %></a>-->
+
+
+    <div class="form-group">
+    <form id="edit-robot-form" action="<%= requestUrl %>" method="<%= requestMethod %>">
+      <label class="control-label col-sm-2"
+       for="name">Name</label>
+      <input id="name" name="name" type="text" placeholder="My Robot" value="<%= robot.name %>">
+      <br>
+      <label for="description">Description</label>
+      <textarea class="form-control" rows="5" id="description" name="description" rows="10" placeholder="<%= robot.name %>"><%= robot.description %></textarea>
+      <br>
+      <label class="control-label col-sm-2" for="in-stock">Units in-stock</label>
+      <input id="in-stock" name="in-stock" type="number" placeholder="0" value="<%= robot.in_stock %>">
+      <br>
+
+        <div class ="edit-sub">
+
+      <button id="submit" type="submit" class="btn  btn-info">Submit</button>
+      </div>
+    </form>
+  </div>
+    <hr style="margin-top:2em;">
+
+
+
+    <script type="text/javascript">
+     const requestMethod = "<%= requestMethod %>"
+     const requestUrl = "<%= requestUrl %>"
+     console.log("FORM WILL", requestMethod, requestUrl)
+     var inputName = document.getElementById("name")
+     var inputDescription = document.getElementById("description")
+     var inputQuantityInStock = document.getElementById("in-stock")
+     var submitButton = document.getElementById("submit")
+     submitButton.addEventListener("click", submitForm, false)
+     function submitForm(event) {
+       event.preventDefault() // prevent duplicate form submission!
+       const formData = {name: inputName.value, description: inputDescription.value, in_stock: inputQuantityInStock.value}
+       console.log("SUBMITTING", formData)
+       const requestOptions = {
+         method: requestMethod,
+         headers: {'Accept':'application/json', 'Content-Type':'application/json'},
+         body: JSON.stringify(formData)
+       }
+       fetch(requestUrl, requestOptions).then(function(response) {
+         if (response.ok) {
+           response.json().then(function(json){
+             window.location = '/robots'
+           })
+         } else {
+           alert("Validation Error. Please make sure to specify all required values.")
+         }
+       }).catch(function(err){e
+         alert("Server Error. API server is down. Try again later.")
+       })
+     }
+   </script>
+ </body>
+</html>
