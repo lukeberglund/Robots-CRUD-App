@@ -8,7 +8,7 @@
     <h1><%= title %></h1>
 	<div align="left">
 	<a href="/robots/new">
-  <button> New Robot</button>
+  <button>+ New Robot</button>
 </a>
     </div>
 	
@@ -28,8 +28,8 @@
 	<tbody>
       <% robots.forEach(function(robot){ %>
 	  <tr>
-	  <td><%= robot._id %></td>
-      <td><a href="/robots/<%= robot.name %>"><%= robot.name %></a></td>
+	  <td><a href="/robots/<%= robot._id %>"><%= robot._id %></a></td>
+	  <td><%= robot.name %></td>
 	  <td><%= robot.description %></td>
       <td><a href="/robots/<%= robot.name %>/edit"><button class="btn btn-warning btn-sm">
       <span class="glyphicon glyphicon-pencil"></span>Edit
